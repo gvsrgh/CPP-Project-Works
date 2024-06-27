@@ -1,6 +1,6 @@
 /***********
  * Advanced Attendance Calculator
- * In this Program we will calculate the attendance of a student in each subject.
+ * In this Program we will calculate the attendance of a student in each course.
  * We will take the total number of classes conducted and the number of classes attended by the student as input.
  * We will then calculate the attendance percentage of the student in each subject.
  * We will then display the attendance percentage of the student in each subject.
@@ -11,31 +11,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string roll_number;
-int total_courses_opted;
+string roll_number; // Global variable to store the roll number of the student
+int total_courses_opted; // Global variable to store the total number of courses opted by the student
 
 class AdvancedAttendanceCalculator {
 private:
-    int total_courses_opted; //total number of courses opted by the student
-    map<string, pair<pair<int,int>,bool>> attendance; //map to store the attendance details of each course
+    int total_courses_opted; // Total number of courses opted by the student
+    map<string, pair<pair<int,int>,bool>> attendance; // Map to store the attendance details of each course
 
 public:
     AdvancedAttendanceCalculator() {
-        //initialize the total courses opted to 0
+        // Initialize the total courses opted to 0
         total_courses_opted = 0;
-        //create a file to store the attendance details
+        // Create a file to store the attendance details
         ifstream file;
         file.open(roll_number+"attendance.txt");
-        read_file();
+        read_file(); // Read the file content and populate the attendance map
         file.close();
     }
 
-    //parameterized constructor to initialize the total courses opted
+    // Parameterized constructor to initialize the total courses opted
     AdvancedAttendanceCalculator(int total_courses_opted) {
         this->total_courses_opted = total_courses_opted;
     }
     
-    //takes content in file to store in map
+    // Takes content in file to store in map
     void read_file() {
         ifstream file;
         file.open(roll_number+"attendance.txt");
@@ -47,9 +47,9 @@ public:
         file.close();
     }
 
-    //function to input the attendance details of each course and alternativlely update in file
+    // Function to input the attendance details of each course and update the file
     void input() {
-        //if file is not empty then prompt to use update function
+        // If file is not empty then prompt to use update function
         ifstream check_file(roll_number + "attendance.txt");
         if(check_file.peek() != ifstream::traits_type::eof()) {
             cout << "Attendance details found, please use the update function\n";
@@ -87,7 +87,7 @@ public:
         file.close();
     }
 
-    //function to update the attendance details of each course and alternativlely update in file no need to update honors
+    // Function to update the attendance details of each course and update the file
     void update() {
         ifstream check_file(roll_number + "attendance.txt");
         // Check if the file is empty
@@ -101,7 +101,7 @@ public:
         // Read the attendance details from the file
         ofstream file(roll_number + "attendance.txt", ios::out); // Open in overwrite mode, use ios::app for append mode
         for(auto it = attendance.begin(); it != attendance.end(); ++it) {
-            //this below inputs taken are used to add it to previous attendance details
+            // Inputs taken are used to add to previous attendance details
             string course_name = it->first;
             int total_classes_conducted, classes_attended;
             bool is_honors;
@@ -113,7 +113,7 @@ public:
                 cout << "Classes attended cannot be greater than total classes conducted\n";
                 return;
             }
-            //add it to previous values
+            // Add to previous values
             attendance[course_name].first.first += classes_attended;
             attendance[course_name].first.second += total_classes_conducted;
             is_honors = attendance[course_name].second;
@@ -124,7 +124,7 @@ public:
         file.close();
     }
 
-    //function to add a new course to the attendance details
+    // Function to add a new course to the attendance details
     void add_course() {
         ofstream file;
         file.open(roll_number+"attendance.txt", ios::app);
@@ -153,10 +153,10 @@ public:
         file.close();
     }
 
-    //function to display the attendance in table format with detailed attended and total classes from the file
+    // Function to display the attendance in table format with detailed attended and total classes from the file
     void display() {
         ifstream file;
-        file.open( roll_number+"attendance.txt");
+        file.open(roll_number+"attendance.txt");
         if(file.peek() == ifstream::traits_type::eof()) {
             cout << "No attendance details found, please input the attendance details\n";
             return;
@@ -169,11 +169,11 @@ public:
             cout << course_name << "\t\t" << classes_attended << "\t\t" << total_classes_conducted << "\t\t" << (classes_attended*100.0)/total_classes_conducted << "%\t\t\t" << is_honors << "\n";
     }
 
-    //function to display the attendance percentage of each course
+    // Function to display the attendance percentage of each course
     void display_attendance_percentage() {
-        //display the total attendance percentage and the honors attendance percentage separately where honors attendance percentage is not included in the total attendance percentage
+        // Display the total attendance percentage and the honors attendance percentage separately where honors attendance percentage is not included in the total attendance percentage
         ifstream file;
-        file.open( roll_number+"attendance.txt");
+        file.open(roll_number+"attendance.txt");
         if(file.peek() == ifstream::traits_type::eof()) {
             cout << "No attendance details found, please input the attendance details\n";
             return;
@@ -188,7 +188,7 @@ public:
             if(fis_honors) {
                 total_honors_classes += ftotal_classes_conducted;
                 total_honors_classes_attended += fclasses_attended;
-            }else {
+            } else {
                 total_classes += ftotal_classes_conducted;
                 total_classes_attended += fclasses_attended;
             }
@@ -209,7 +209,7 @@ public:
         file.close();
     }
     
-    //function to reset the attendance details of each course
+    // Function to reset the attendance details of each course
     void reset() {
         ofstream file;
         file.open(roll_number+"attendance.txt");
@@ -220,10 +220,11 @@ public:
 
 int main(){
     cout << "Enter the Roll Number: ";
-    cin >> roll_number;
+    cin >> roll_number; // Input roll number
     int choice;
     do
     {
+        // Display menu
         cout << "------------------------Advanced Attendance Calculator------------------------\n";
         cout << "1. Update Roll Number you want to work on\n";
         cout << "2. Input the Attendance Details\n";
@@ -235,32 +236,32 @@ int main(){
         cout << "99. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
-        AdvancedAttendanceCalculator obj;
+        AdvancedAttendanceCalculator obj; // Create an object of the class
         switch (choice)
         {
         case 1:
             cout << "Enter the Roll Number: ";
-            cin >> roll_number;
+            cin >> roll_number; // Update roll number
             break;
         case 2:
-            obj.input();
+            obj.input(); // Input attendance details
             break;
         case 3:
-            obj.add_course();
+            obj.add_course(); // Add new course
             break;
         case 4:
-            obj.update();
+            obj.update(); // Update attendance details
             break;
         case 5:
             cout << "------------------------Attendance Details------------------------\n";
-            obj.display();
+            obj.display(); // Display attendance details
             break;
         case 6:
             cout << "------------------------Attendance Percentage------------------------\n";
-            obj.display_attendance_percentage();
+            obj.display_attendance_percentage(); // Display attendance percentage
             break;
         case 98:
-            obj.reset();
+            obj.reset(); // Reset attendance details
             break;
         case 99:
             cout << "Thanks for using the Advanced Attendance Calculator - GVSR, Exiting...\n";
@@ -269,7 +270,7 @@ int main(){
             cout << "Invalid Choice\n";
             break;
         }
-    } while (choice != 99);
+    } while (choice != 99); // Loop until user exits
 
     return 0;
 }
