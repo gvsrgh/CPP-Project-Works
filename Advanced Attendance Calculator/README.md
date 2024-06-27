@@ -25,24 +25,24 @@ The Advanced Attendance Calculator is a C++ program designed to calculate and ma
 
 1. **Clone the Repository:**
    ```sh
-   git clone https://github.com/your-repo/advanced-attendance-calculator.git
+   git clone https://github.com/gvsrgh/CPP-Project-Works.git
    ```
 
 2. **Navigate to the Project Directory:**
    ```sh
-   cd advanced-attendance-calculator
+   cd CPP-Project-Works
    ```
 
 3. **Compile the Program:**
    ```sh
-   g++ -o attendance_calculator attendance_calculator.cpp
+   g++ -o advanced_attendance_calculator advanced_attendance_calculator.cpp
    ```
 
 ### Usage
 
 1. **Run the Program:**
    ```sh
-   ./attendance_calculator
+   ./advanced_attendance_calculator
    ```
 
 2. **Follow the On-Screen Prompts:**
@@ -85,10 +85,6 @@ Is Honors? (1/0): 0
 ## Author
 
 G. Venkata Sai Ram
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
